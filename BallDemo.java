@@ -4,11 +4,13 @@ import java.awt.Color;
  * Class BallDemo - a short demonstration showing animation with the 
  * Canvas class. 
  *
- * @author Bill Crosbie
+ * @previous author Bill Crosbie
  * @version 2015-March-BB
  *
- * @author Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @original author Michael Kölling and David J. Barnes
+ *
+ * @author Marc Weitze
+ * @version 3/1/2020
  */
 
 public class BallDemo   
@@ -21,6 +23,23 @@ public class BallDemo
     public BallDemo()
     {
         myCanvas = new Canvas("Ball Demo", 600, 500);
+    }
+    
+    public void boxBounce()
+    {
+        myCanvas.setVisible(true);
+        
+        BoxBounce myBoxBounce = new BoxBounce(10, 10, 30, Color.magenta,
+                                myCanvas);
+        
+        
+        
+        boolean finished = false;
+        while(!finished)
+        {
+            myCanvas.wait(50);
+            myBoxBounce.move();
+        }
     }
 
     /**
