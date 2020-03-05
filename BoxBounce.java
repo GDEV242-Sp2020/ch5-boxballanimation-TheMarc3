@@ -21,8 +21,8 @@ public class BoxBounce
     private int bottomWall = 500;
     
     private Canvas canvas;
-    private int ySpeed = 5;                // initial downward speed
-    private int xSpeed = 4;
+    private int ySpeed;                // initial downward speed
+    private int xSpeed;
 
     /**
      * Constructor for objects of class BouncingBall
@@ -31,26 +31,36 @@ public class BoxBounce
      * @param yPos  the vertical coordinate of the ball
      * @param ballDiameter  the diameter (in pixels) of the ball
      * @param ballColor  the color of the ball
-     * @param groundPos  the position of the ground (where the wall will bounce)
+     * @param groundPos  the position of the ground
+     *      (where the wall will bounce)
      * @param drawingCanvas  the canvas to draw this ball on
+     * @param speed 
      */
     public BoxBounce(int xPos, int yPos, int ballDiameter, Color ballColor,
-                        Canvas drawingCanvas)
+                        Canvas drawingCanvas, int speed)
     {
         xPosition = xPos;
         yPosition = yPos;
         color = ballColor;
         diameter = ballDiameter;
         canvas = drawingCanvas;
+        xSpeed = speed;
+        ySpeed = speed;
     }
 
     /**
      * Draw this ball at its current position onto the canvas.
+     * This will also draw the walls.
      **/
     public void draw()
     {
         canvas.setForegroundColor(color);
         canvas.fillCircle(xPosition, yPosition, diameter);
+        //below are what draws the lines:
+        canvas.drawLine(leftWall, topWall, rightWall, topWall);//top
+        canvas.drawLine(leftWall, bottomWall, rightWall, bottomWall);//bottom
+        canvas.drawLine(leftWall, topWall, leftWall, bottomWall);//left
+        canvas.drawLine(rightWall, bottomWall, rightWall, bottomWall);//right
     }
 
     /**
@@ -116,5 +126,22 @@ public class BoxBounce
     public int getYPosition()
     {
         return yPosition;
+    }
+    
+    public int getWall(String wall)
+    {
+        int wallPosition = 0;
+        switch(wall)
+        {
+            case "left":
+                return leftWall;
+            case "right":
+                return rightWall;
+            case "top":
+                return topWall;
+            case "bottom":
+                return bottomWall;
+        }
+        return wallPosition;
     }
 }

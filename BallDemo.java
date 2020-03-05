@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -25,21 +27,75 @@ public class BallDemo
         myCanvas = new Canvas("Ball Demo", 600, 500);
     }
     
-    public void boxBounce()
+    /**
+     * Create a BoxBounce object
+     * @param ballCount can have between 5 and 30 balls
+     */
+    public void boxBounce(int ballCount)
     {
         myCanvas.setVisible(true);
+        BoxBounce ballArray[];
+        Random rand = new Random();
+        int numBalls;
+        if(ballCount <= 5)
+        {
+            numBalls = 5;
+        }
+        else if(ballCount >= 30)
+        {
+            numBalls = 30;
+        }
+        else
+        {
+            numBalls = ballCount;
+        }
         
-        BoxBounce myBoxBounce = new BoxBounce(10, 10, 30, Color.magenta,
-                                myCanvas);
+        ballArray = new BoxBounce[(numBalls - 1)];
         
-        
-        
+        for(int i = 0; i < ballArray.length; i++)
+        {
+            int xPos = rand.nextInt(getAxisLength('x'));
+            int yPos = rand.nextInt(getAxisLength('y'));
+            int diam = rand.nextInt(getAxisLength('z'));
+            ballArray[i] = new BoxBounce(xPos, yPos, diam, Color.cyan,
+                    myCanvas, 7);
+        }
         boolean finished = false;
         while(!finished)
         {
             myCanvas.wait(50);
-            myBoxBounce.move();
+            for(int j = 0; j < ballArray.length; j++)
+            {
+                ballArray[j].move();
+            }
         }
+    }
+    
+    public int getAxisLength(char axis)
+    {
+        int numReturn = 0;
+        BoxBounce myBoxBounce = new BoxBounce(0, 0, 0, Color.white,
+                myCanvas, 0);
+        int X = (myBoxBounce.getWall("right") - myBoxBounce.getWall("left"));
+        int Y = (myBoxBounce.getWall("bottom") - myBoxBounce.getWall("top"));
+        if(axis == 'x')
+        {
+            numReturn = X;
+        }
+        else if(axis == 'y')
+        {
+            numReturn = Y;
+        }
+        else if(axis == 'z')
+        {
+            if(X > Y)
+            {
+                numReturn = (X - Y);
+            }
+            else
+                numReturn = (Y - X);
+        }
+        return numReturn;
     }
 
     /**
@@ -55,9 +111,11 @@ public class BallDemo
         myCanvas.drawLine(50, ground, 550, ground);
 
         // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
+        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE,
+            ground, myCanvas);
         ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
+        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED,
+            ground, myCanvas);
         ball2.draw();
 
         // make them bounce
