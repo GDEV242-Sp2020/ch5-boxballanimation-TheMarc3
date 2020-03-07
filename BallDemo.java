@@ -29,7 +29,8 @@ public class BallDemo
     
     /**
      * Create a BoxBounce object that creates an array of balls
-     * that can bounce
+     * that can bounce; the balls are created with random positions
+     * and a random size between 10-25 pixels
      * @param ballCount can have between 5 and 30 balls
      */
     public void boxBounce(int ballCount)
@@ -57,7 +58,12 @@ public class BallDemo
         {
             int xPos = rand.nextInt(getAxisLength('x'));
             int yPos = rand.nextInt(getAxisLength('y'));
-            int diam = rand.nextInt(getAxisLength('z'));
+            
+            int diam = rand.nextInt(26);
+            while(diam > 25 || diam < 10)
+            {
+                diam = rand.nextInt(26);
+            }
             ballArray[i] = new BoxBounce(xPos, yPos, diam, Color.cyan,
                     myCanvas, 7);
         }
