@@ -34,7 +34,7 @@ public class BoxBounce
      * @param groundPos  the position of the ground
      *      (where the wall will bounce)
      * @param drawingCanvas  the canvas to draw this ball on
-     * @param speed 
+     * @param speed sets the rate at which the balls will "move" at
      */
     public BoxBounce(int xPos, int yPos, int ballDiameter, Color ballColor,
                         Canvas drawingCanvas, int speed)
@@ -73,6 +73,7 @@ public class BoxBounce
 
     /**
      * Move this ball according to its position and speed and redraw.
+     * Also makes the balls "bounce" off the walls
      **/
     public void move()
     {
@@ -128,6 +129,10 @@ public class BoxBounce
         return yPosition;
     }
     
+    /**
+     * returns an int of the length of a wall being asked for
+     * @param wall is the wall that is being asked for the length of
+     */
     public int getWall(String wall)
     {
         int wallPosition = 0;

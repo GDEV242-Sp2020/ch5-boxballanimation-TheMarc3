@@ -28,7 +28,8 @@ public class BallDemo
     }
     
     /**
-     * Create a BoxBounce object
+     * Create a BoxBounce object that creates an array of balls
+     * that can bounce
      * @param ballCount can have between 5 and 30 balls
      */
     public void boxBounce(int ballCount)
@@ -71,7 +72,12 @@ public class BallDemo
         }
     }
     
-    public int getAxisLength(char axis)
+    /**
+     * Returns an int value for the length of the walls based on the param
+     * @param axis takes a char of values 'x' 'y' and 'z' to return the values
+     *      for the corresponding wall length ('z' is for the difference)
+     */
+    private int getAxisLength(char axis)
     {
         int numReturn = 0;
         BoxBounce myBoxBounce = new BoxBounce(0, 0, 0, Color.white,
